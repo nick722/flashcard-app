@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { addDeck, showAddDeck, hideAddDeck } from '../actions';
 import { Link } from 'react-router';
-var createReactClass = require('create-react-class');
+// var createReactClass = require('create-react-class');
 
 const mapStateToProps = ({decks, addingDeck}) => ({
   decks,
@@ -17,14 +17,17 @@ const mapDispatchToProps = dispatch => ({
   hideAddDeck: () => dispatch(hideAddDeck())
 });
 
-const Sidebar = createReactClass({
+class Sidebar extends React.Component{
+  constructor(props) {
+    super(props);
+    this.createDeck = this.createDeck.bind(this);
+  }
   componentDidUpdate() {
     var el = ReactDOM.findDOMNode(this.refs.add);
     if (el) el.focus();
-  },
+  }
   render() {
     let props = this.props;
-    {console.log('props = '+JSON.stringify(props))}
     return (
       <div className='sidebar'>
         <h2>All Decks </h2>
@@ -39,17 +42,16 @@ const Sidebar = createReactClass({
           { props.addingDeck && <input ref='add' onKeyPress={this.createDeck} /> }
       </div>
     );
-  },
+  }
   createDeck(evt) {
-    // if event not Enter key
-    if (evt.which !== 13) return;
-
+    const ENTER_KEY = 13;
+    if (evt.which !== ENTER_KEY) return;
+    
     // else Get the value of event (key pressed)
     var name = ReactDOM.findDOMNode(this.refs.add).value;
     this.props.addDeck(name);
     this.props.hideAddDeck();
   }
-});
+};
 
-// Exporting container component
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

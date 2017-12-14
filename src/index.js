@@ -1,34 +1,28 @@
-/* eslint-disable */
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory  } from 'react-router';
-import { syncHistoryWithStore, routerReducer, ConnectedRouter  } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import * as reducers from './reducers';
-// reducers.routing = routerReducer;
-
+import './index.css';
 import * as localStore from './localStore';
-
 import App from './components/App';
 import VisibleCards from './components/VisibleCards';
 import NewCardModal from './components/NewCardModal';
 import EditCardModal from './components/EditCardModal';
 import StudyModal from './components/StudyModal';
 
-// Main reducer
-// const store = createStore(combineReducers(reducers), localStore.get());
-const store = createStore(combineReducers({ routing: routerReducer, 
-  ...reducers
-    })); 
+const store = createStore(combineReducers(
+  { routing: routerReducer, ...reducers }),
+  localStore.get()
+); 
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 function run() {
   let state = store.getState();
-
   localStore.set(state, ['decks', 'cards']);
-
   ReactDOM.render((
     <Provider store={store}>
       <Router history={history}>

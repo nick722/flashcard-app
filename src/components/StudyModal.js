@@ -9,13 +9,12 @@ const mapStateToProps = ({ cards, showBack}, { params: { deckId } }) => ({
   showBack,
   deckId,
   card: cards.filter(card => card.deckId === deckId && 
-  (!card.lastStudiedOn || (new Date - card.lastStudiedOn) / MS_IN_DAY >= card.score))[0]
+  (!card.lastStudiedOn || (new Date() - card.lastStudiedOn) / MS_IN_DAY >= card.score))[0]
 });
 
 const mapDispatchToProps = dispatch => ({
   onStudied: (cardId, score) => {
     var now = new Date();
-    now.setHours(0, 0, 0, 0);//set to earliest of today
     dispatch(updateCard({ id: cardId, score, lastStudiedOn: +now }));
     dispatch(setShowBack());
   },

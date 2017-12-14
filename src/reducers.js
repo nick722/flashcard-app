@@ -23,7 +23,7 @@ export const cards = (state, action) => {
       // Create a new Object based on another one
       let newCard = Object.assign({}, action.data, {
         score: 1,
-        id: +new Date
+        id: +new Date()
       });
 
       return state.concat([newCard]);
@@ -46,7 +46,7 @@ export const cards = (state, action) => {
 export const decks = (state, action) => {
   switch (action.type) {
     case 'ADD_DECK':
-      let newDeck = { name: action.data, id: +new Date };
+      let newDeck = { name: action.data, id: +new Date() };
       return state.concat([newDeck]);
     default: 
       return state || [];

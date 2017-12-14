@@ -2,10 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 
-const CardModal = React.createClass({
+class CardModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSave = this.onSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+  }
   componentDidUpdate() {
     ReactDOM.findDOMNode(this.refs.front).focus();
-  },
+  }
   render() {
     let { card, onDelete } = this.props;
 
@@ -23,7 +28,7 @@ const CardModal = React.createClass({
           null}
       </p>
     </div>);
-  },
+  }
   onSave(evt) {
     var front = ReactDOM.findDOMNode(this.refs.front);
     var back = ReactDOM.findDOMNode(this.refs.back);
@@ -33,11 +38,11 @@ const CardModal = React.createClass({
       back: back.value
     }));
     browserHistory.push(`/deck/${this.props.card.deckId}`);
-  },
+  }
   onDelete(e) {
     this.props.onDelete(this.props.card.id);
     browserHistory.push(`/deck/${this.props.card.deckId}`);
   }
-});
+};
 
 export default CardModal;

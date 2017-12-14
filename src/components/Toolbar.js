@@ -17,7 +17,7 @@ const Toolbar = ({ deckId, showAddDeck, onFilter }) => {
       onChange={e => onFilter(e.target.value)}  
       className='search' 
       type='search'
-      placeholder='Search Deck...' />
+      placeholder='Search...' />
   </div>) : null;
 
   return (<div className='toolbar'>
