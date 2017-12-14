@@ -38,5 +38,9 @@ function run() {
   ), document.getElementById('root'));
 }
 
-run();
-store.subscribe(run);
+function init () {
+  run();
+  store.subscribe(run);
+}
+
+init();
